@@ -223,7 +223,7 @@ Last login: Thu Mar  6 16:53:10 2025 from 72.83.26.85
 ### Activity 4
 
 
-[zye2@hop-amd-1 zye2]$ git clone https://github.com/ZiyangYe566842/stat778-week7.git
+[zye2@hop-amd-1 zye2]$ git clone https://github.com/ZiyangYe566842/stat778.git
 Cloning into 'stat778-week7'...
 remote: Enumerating objects: 14, done.
 remote: Counting objects: 100% (14/14), done.
