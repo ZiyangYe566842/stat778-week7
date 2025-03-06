@@ -67,4 +67,163 @@ Results will be saved to file: results_repl10_task2.txt
 ### Activity 3
 
 
+(base) ziyangye@ziyangs-MacBook-Pro ~ % ssh -v hopper
+OpenSSH_9.0p1, LibreSSL 3.3.6
+debug1: Reading configuration data /Users/ziyangye/.ssh/config
+debug1: /Users/ziyangye/.ssh/config line 2: Applying options for hopper
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 21: include /etc/ssh/ssh_config.d/* matched no files
+debug1: /etc/ssh/ssh_config line 54: Applying options for *
+debug1: /etc/ssh/ssh_config line 58: Applying options for *
+debug1: Authenticator provider $SSH_SK_PROVIDER did not resolve; disabling
+debug1: Connecting to hopper.orc.gmu.edu port 22.
+debug1: Connection established.
+debug1: identity file /Users/ziyangye/.ssh/orc-hpc.key type -1
+debug1: identity file /Users/ziyangye/.ssh/orc-hpc.key-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_9.0
+debug1: Remote protocol version 2.0, remote software version OpenSSH_8.0
+debug1: compat_banner: match: OpenSSH_8.0 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to hopper.orc.gmu.edu:22 as 'zye2'
+debug1: load_hostkeys: fopen /Users/ziyangye/.ssh/known_hosts2: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:15A/UGidvu+9lbhU08h43jlNm6XGcT/gYSe2ndmGPqs
+debug1: load_hostkeys: fopen /Users/ziyangye/.ssh/known_hosts2: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: Host 'hopper.orc.gmu.edu' is known and matches the ED25519 host key.
+debug1: Found key in /Users/ziyangye/.ssh/known_hosts:13
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: get_agent_identities: bound agent to hostkey
+debug1: get_agent_identities: ssh_fetch_identitylist: agent contains no identities
+debug1: Will attempt key: /Users/ziyangye/.ssh/orc-hpc.key  explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+|====================================================================|
+| Use of this computer system without authority, or in excess of     |
+| granted authority, is prohibited.  This system monitored and       |
+| recorded by system personnel.                                      |
+|                                                                    |
+| Wait for Duo 2FA                                                   |
+|====================================================================|
+debug1: Authentications that can continue: publickey,gssapi-with-mic,password
+debug1: Next authentication method: publickey
+debug1: Trying private key: /Users/ziyangye/.ssh/orc-hpc.key
+no such identity: /Users/ziyangye/.ssh/orc-hpc.key: No such file or directory
+debug1: Next authentication method: password
+zye2@hopper.orc.gmu.edu's password: 
+Authenticated using "password" with partial success.
+debug1: Authentications that can continue: publickey,gssapi-with-mic,keyboard-interactive
+debug1: Next authentication method: keyboard-interactive
+Authenticated to hopper.orc.gmu.edu ([129.174.21.130]:22) using "keyboard-interactive".
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: filesystem
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: client_input_hostkeys: searching /Users/ziyangye/.ssh/known_hosts for hopper.orc.gmu.edu / (none)
+debug1: client_input_hostkeys: searching /Users/ziyangye/.ssh/known_hosts2 for hopper.orc.gmu.edu / (none)
+debug1: client_input_hostkeys: hostkeys file /Users/ziyangye/.ssh/known_hosts2 does not exist
+debug1: client_input_hostkeys: no new or deprecated keys from server
+debug1: Sending environment.
+debug1: channel 0: setting env LANG = "en_US.UTF-8"
+Autopushing login request to phone...
+Success. Logging you in...
+Last failed login: Thu Mar  6 16:53:51 EST 2025 from 72.83.26.85 on ssh:notty
+There was 1 failed login attempt since the last successful login.
+Last login: Thu Mar  6 16:53:10 2025 from 72.83.26.85
+|--------------------------------------------------------------------|
+|                     HOPPER RESEARCH CLUSTER                        |
+|          _  _ ____ ___  ___  ____ ____    ____ _  _ ___            | 
+|          |__| |  | |__] |__] |___ |__/ __ |__| |\/| |  \           |
+|          |  | |__| |    |    |___ |  \    |  | |  | |__/           |
+|                                                                    |
+|   *** George Mason University - Office of Research Computing ***   |
+|                                                                    |
+| Use of this computer system without authority, or in excess of     |
+| granted authority, is prohibited.  This system monitored and       |
+| recorded by system personnel.                                      |
+|                                                                    |
+| Use of this system is subject to the agreement that any research   |
+| produced is in the public domain, and is intended to be published  |
+| or is at least able to be published without restriction.           |
+|--------------------------------------------------------------------|
+* $SCRATCH directory has time quota of 90 days.                      *
+*    ANY data older than 90 days will be deleted on the 1st day of   *
+*    each month. $SCRATCH is not backed up.                          *
+*                                                                    *
+* Due to high GPU demand,A100.80 and A100.40 GPUs are now available  *
+*  only to jobs submitted using Slurm scripts.Interactive GPU        *
+*  sessions using salloc or Open OnDemand are limited to 1g.10gb,    *
+*  2g.20gb,and 3g.40gb MIG GPU slices.                               *
+*                                                                    *
+* SLURM maximum time limits have been increased for these partitions:*
+*  - normal = 5 days (#SBATCH --time=5-00:00:00)                     *
+*  - gpuq   = 3 days (#SBATCH --time=3-00:00:00)                     *
+**********************************************************************
+[zye2@hop-amd-1 ~]$ 
+
+
+
+
+
+
+
+[zye2@hop-amd-1 ~]$ module spider r
+
+----------------------------------------------------------------------------
+  r:
+----------------------------------------------------------------------------
+     Versions:
+        r/3.6.3
+        r/4.0.3-hb
+        r/4.0.3-hx
+        r/4.0.3-pn
+        r/4.0.3-ta
+        r/4.1.2-dx
+        r/4.1.2-zx
+        r/4.3.1-gnu-mkl
+        r/4.3.1-gnu-openblas
+        r/4.3.1-intel-mkl
+        r/4.3.1-singularity
+        r/4.3.2-gnu-openblas
+        r/4.4.0-ba
+     Other possible modules matches:
+        .charliecloud  .compiler-rt32  .compiler32  admixture  advisor  ...
+
+----------------------------------------------------------------------------
+  To find other possible module matches execute:
+
+      $ module -r spider '.*r.*'
+
+----------------------------------------------------------------------------
+  For detailed information about a specific "r" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+
+     $ module spider r/4.4.0-ba
+----------------------------------------------------------------------------
+
+ 
+
+
+### Activity 4
+
+
+
+
+
 
