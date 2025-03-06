@@ -1,0 +1,70 @@
+---
+title: inclass-week7
+author: Ziyang Ye
+format:
+    html:
+        code-fold: False
+        embed-resources: true
+        self-contained: true
+        theme:
+            light: [cosmo, theme.scss]
+            dark: [cosmo, theme-dark.scss]
+        toc: true
+---
+
+### Activity 1
+
+(base) ziyangs-MacBook-Pro:stat778-week7 ziyangye$ ls
+778-week7-inclass.qmd   README.md               lecture_07-hpc.html
+
+### Activity 2
+
+This is what my R script looks like:
+```{r}
+library(argparser)
+
+# Create a parser with a brief description.
+p <- arg_parser("A brief description of what this Rscript does.")
+
+# Add named arguments.
+p <- add_argument(p, "--ncores", type = "integer", default = 1L,
+                  help = "Number of CPUs to use for parallel processing")
+p <- add_argument(p, "--repl", type = "integer", default = 1L,
+                  help = "Number of replications to run")
+
+# Add positional (unnamed) argument.
+p <- add_argument(p, "task", type = "integer", 
+                  help = "Task number")
+
+# Parse the arguments.
+args <- parse_args(p)
+
+# Report the number of CPUs.
+cat("Running code on", args$ncores, "CPUs\n")
+
+# Create an output file name from repl and task.
+output_file <- paste0("results_repl", args$repl, "_task", args$task, ".txt")
+
+# Print the output file name with a short description.
+cat("Results will be saved to file:", output_file, "\n")
+
+```
+This script now:
+
+Accepts the named argument --ncores (integer),
+Accepts the named argument --repl (integer),
+Accepts the positional argument task (integer),
+Constructs an output file name using the values of repl and task,
+And prints both the CPU information and the output file name to the standard output.
+
+output:
+(base) ziyangs-MacBook-Pro:stat778-week7 ziyangye$ Rscript myrscript.R --ncores 1 --repl 10 2
+Running code on 1 CPUs
+Results will be saved to file: results_repl10_task2.txt
+
+
+
+### Activity 3
+
+
+

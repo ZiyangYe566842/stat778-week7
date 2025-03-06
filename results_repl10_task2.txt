@@ -1,0 +1,3 @@
+Running code on 1 CPUs
+Results will be saved to file: results_repl10_task2.txt
+
