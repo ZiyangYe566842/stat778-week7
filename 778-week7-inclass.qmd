@@ -223,6 +223,19 @@ Last login: Thu Mar  6 16:53:10 2025 from 72.83.26.85
 ### Activity 4
 
 
+[zye2@hop-amd-1 zye2]$ git clone https://ZiyangYe566842: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@github.com/ZiyangYe566842/stat778-week7.git
+Cloning into 'stat778-week7'...
+remote: Enumerating objects: 14, done.
+remote: Counting objects: 100% (14/14), done.
+remote: Compressing objects: 100% (9/9), done.
+remote: Total 14 (delta 3), reused 10 (delta 2), pack-reused 0 (from 0)
+Receiving objects: 100% (14/14), 283.03 KiB | 28.30 MiB/s, done.
+Resolving deltas: 100% (3/3), done.
+[zye2@hop-amd-1 zye2]$ ls
+stat778-week7  tmp
+[zye2@hop-amd-1 zye2]$ 
+
+
 
 
 

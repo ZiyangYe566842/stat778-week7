@@ -1,3 +1,4 @@
+.libPaths("~/Rlibs")
 library(argparser)
 
 p <- arg_parser("A brief description of what this Rscript does.")
