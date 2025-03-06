@@ -235,8 +235,13 @@ Resolving deltas: 100% (3/3), done.
 stat778-week7  tmp
 [zye2@hop-amd-1 zye2]$ 
 
+[zye2@hop-amd-1 stat778-week7]$ Rscript myrscript.R --ncores 1 --repl 10 2
+Loading required package: argparser
+Running code on 1 CPUs
+Results will be saved to file: results_repl10_task2.txt
 
 
 
+### Activity 5
 
 
