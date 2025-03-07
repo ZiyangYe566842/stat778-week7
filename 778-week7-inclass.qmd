@@ -243,5 +243,155 @@ Results will be saved to file: results_repl10_task2.txt
 
 
 ### Activity 5
+```{r}
+#!/usr/bin/env Rscript
 
+user_lib <- "~/Rlibs"
+if (!dir.exists(user_lib)) {
+  dir.create(user_lib, recursive = TRUE)
+}
+.libPaths(c(user_lib, .libPaths()))
+
+
+install_if_missing <- function(pkg) {
+  if (!suppressWarnings(require(pkg, character.only = TRUE))) {
+    message("Package ", pkg, " not found. Installing...")
+    install.packages(pkg, repos = "https://cloud.r-project.org", lib = user_lib)
+    library(pkg, character.only = TRUE)
+  }
+}
+
+install_if_missing("argparser")
+install_if_missing("robustbase")
+
+
+suppressPackageStartupMessages({
+  library(argparser)
+})
+p <- arg_parser("Estimate AR(1) correlation coefficient using MCD")
+p <- add_argument(p, "--ncores", help="Number of cores (not used in this script)", type="integer", default=1)
+p <- add_argument(p, "--repl", help="Number of replications", type="integer", default=10)
+p <- add_argument(p, "--task", help="Task number (1-10) for AR(1) coefficient grid", type="integer", default=1)
+argv <- parse_args(p)
+
+grid <- seq(0.09, 0.99, length.out = 10)
+rho <- grid[argv$task]
+cat("Using AR(1) coefficient (rho) =", rho, "\n")
+
+d <- 200
+
+corr_matrix <- outer(1:d, 1:d, FUN = function(i, j) rho^abs(i - j))
+
+L <- chol(corr_matrix)
+
+
+n <- 400
+results_list <- vector("list", argv$repl)
+set.seed(123)
+
+for (rep in 1:argv$repl) {
+
+  X <- matrix(rt(n * d, df = 2), nrow = n, ncol = d)
+
+  Y <- X %*% t(L)
+  
+
+  mcd <- covMcd(Y)
+  corr_est <- cov2cor(mcd$cov)
+
+  first_superdiag <- sapply(1:(d - 1), function(i) corr_est[i, i + 1])
+  results_list[[rep]] <- first_superdiag
+}
+
+
+saveRDS(results_list, file = "myrscript.rds")
+cat("Results saved to myrscript.rds\n")
+
+```
+
+### Activity 6
+#!/bin/bash
+#SBATCH --job-name=AR1_estimation
+#SBATCH --output=AR1_estimation_%j.out
+#SBATCH --error=AR1_estimation_%j.err
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=2G
+#SBATCH --time=02:00:00
+#SBATCH --partition=bigmem  # bigmem
+
+
+module load r/3.6.3
+
+
+Rscript myrscript.R --ncores 1 --repl 100 --task 1
+
+
+
+
+[zye2@hopper2 stat778-week7]$ sbatch run_ar1.sh
+Submitted batch job 3251421
+[zye2@hopper2 stat778-week7]$ sacct -j 3251421 -o JobID,JobName,Elapsed,TotalCPU,State,ExitCode
+JobID           JobName    Elapsed   TotalCPU      State ExitCode 
+------------ ---------- ---------- ---------- ---------- -------- 
+3251421      AR1_estim+   00:53:14  53:14.742  COMPLETED      0:0 
+3251421.bat+      batch   00:53:14  53:14.741  COMPLETED      0:0 
+3251421.ext+     extern   00:53:14   00:00:00  COMPLETED      0:0 
+
+### Activity 7
+
+#!/bin/bash
+#SBATCH --job-name=AR1_array
+#SBATCH --output=AR1_array_%A_%a.out
+#SBATCH --error=AR1_array_%A_%a.err
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=2G
+#SBATCH --time=02:00:00
+#SBATCH --array=1-10
+#SBATCH --partition=normal
+
+module load r/3.6.3
+
+
+Rscript myrscript.R --ncores 1 --repl 100 --task ${SLURM_ARRAY_TASK_ID}
+
+
+
+[zye2@hopper2 stat778-week7]$ sbatch run_ar1_array.sh
+Submitted batch job 3251509
+
+[zye2@hopper2 stat778-week7]$ sacct -j 3251509 -o JobID,JobName,Partition,State,Elapsed,TotalCPU
+JobID           JobName  Partition      State    Elapsed   TotalCPU 
+------------ ---------- ---------- ---------- ---------- ---------- 
+3251509_1     AR1_array     bigmem  COMPLETED   00:53:36  53:58.979 
+3251509_1.b+      batch             COMPLETED   00:53:36  53:58.978 
+3251509_1.e+     extern             COMPLETED   00:53:36   00:00:00 
+3251509_2     AR1_array     bigmem  COMPLETED   00:53:31  53:44.837 
+3251509_2.b+      batch             COMPLETED   00:53:31  53:44.835 
+3251509_2.e+     extern             COMPLETED   00:53:31  00:00.001 
+3251509_3     AR1_array     bigmem  COMPLETED   00:54:46  54:41.812 
+3251509_3.b+      batch             COMPLETED   00:54:46  54:41.810 
+3251509_3.e+     extern             COMPLETED   00:54:46  00:00.001 
+3251509_4     AR1_array     bigmem  COMPLETED   00:53:40  53:36.816 
+3251509_4.b+      batch             COMPLETED   00:53:40  53:36.815 
+3251509_4.e+     extern             COMPLETED   00:53:40   00:00:00 
+3251509_5     AR1_array     bigmem  COMPLETED   00:53:05  53:01.005 
+3251509_5.b+      batch             COMPLETED   00:53:05  53:01.003 
+3251509_5.e+     extern             COMPLETED   00:53:05  00:00.001 
+3251509_6     AR1_array     bigmem  COMPLETED   00:53:00  52:54.157 
+3251509_6.b+      batch             COMPLETED   00:53:00  52:54.155 
+3251509_6.e+     extern             COMPLETED   00:53:00  00:00.001 
+3251509_7     AR1_array     bigmem  COMPLETED   00:53:08  53:59.902 
+3251509_7.b+      batch             COMPLETED   00:53:08  53:59.900 
+3251509_7.e+     extern             COMPLETED   00:53:08  00:00.001 
+3251509_8     AR1_array     bigmem  COMPLETED   00:53:51  54:47.563 
+3251509_8.b+      batch             COMPLETED   00:53:51  54:47.562 
+3251509_8.e+     extern             COMPLETED   00:53:51  00:00.001 
+3251509_9     AR1_array     bigmem  COMPLETED   00:53:03  52:56.954 
+3251509_9.b+      batch             COMPLETED   00:53:03  52:56.953 
+3251509_9.e+     extern             COMPLETED   00:53:04  00:00.001 
+3251509_10    AR1_array     bigmem  COMPLETED   00:53:07  53:03.567 
+3251509_10.+      batch             COMPLETED   00:53:07  53:03.565 
+3251509_10.+     extern             COMPLETED   00:53:07  00:00.001
 
